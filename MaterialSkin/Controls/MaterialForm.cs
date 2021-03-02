@@ -34,6 +34,17 @@
             set { base.FormBorderStyle = value; }
         }
 
+        public void setHeaderNavigationHeight(int height)
+        {
+            STATUS_BAR_HEIGHT = height;
+        }
+        public void setActionBarNavigationHeight(int height)
+        {
+            ACTION_BAR_HEIGHT = height;
+            STATUS_BAR_BUTTON_WIDTH = ACTION_BAR_HEIGHT;
+        }
+        public int hNavigationHeight { get; set; }
+
         [Category("Layout")]
         public bool Sizable { get; set; }
 
@@ -96,9 +107,9 @@
             {HTBOTTOMRIGHT, WMSZ_BOTTOMRIGHT}
         };
 
-        private const int STATUS_BAR_BUTTON_WIDTH = STATUS_BAR_HEIGHT;
-        private const int STATUS_BAR_HEIGHT = 24;
-        private const int ACTION_BAR_HEIGHT = 40;
+        private static int STATUS_BAR_HEIGHT = 24;
+        private static int ACTION_BAR_HEIGHT = 40;
+        private static int STATUS_BAR_BUTTON_WIDTH = STATUS_BAR_HEIGHT;
         private const uint TPM_LEFTALIGN = 0x0000;
         private const uint TPM_RETURNCMD = 0x0100;
         private const int WM_SYSCOMMAND = 0x0112;
@@ -201,7 +212,7 @@
 
             Padding = new Padding(3, 3, 3, 3);      //Keep space for resize by mouse
 
-           // This enables the form to trigger the MouseMove event even when mouse is over another control
+            // This enables the form to trigger the MouseMove event even when mouse is over another control
             Application.AddMessageFilter(new MouseMessageFilter());
             MouseMessageFilter.MouseMove += OnGlobalMouseMove;
 
@@ -969,7 +980,7 @@
                 }
             }
 
-            if (ControlBox==true)
+            if (ControlBox == true)
             {
                 //Form title
                 using (NativeTextRenderer NativeText = new NativeTextRenderer(g))
